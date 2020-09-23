@@ -82,5 +82,31 @@ Django aplication with pytest procedure, oriented by The Dumbfounds .
    ![](products/static/products/images/Book.png)
    
    - (djangotest) djangotest $ pipenv install -d pytest-django
-   - (djangotest) djangotest $ pipenv install -d pytest-django
+   - (djangotest) djangotest $ pipenv install -d 'pytest-cov'
    - (djangotest) djangotest $ pipenv install --dev mixer
+   - create a file pytest.ini
+   ```
+    [pytest]
+    DJANGO_SETTINGS_MODULE = testing.settings
+   ```
+   - The directory products/tests was created
+     - file test_models.py
+     - file test_urls,py
+     - file test_views.py
+   
+   - to run test in terminal 
+   ```
+    djangotest) djangotest $ pytest
+    ======================================== test session starts ============================
+    platform linux -- Python 3.8.1, pytest-6.0.2, py-1.9.0, pluggy-0.13.1
+    django: settings: testing.settings (from ini)
+    rootdir: /home/plautz/PycharmProjects/djangotest, configfile: pytest.ini
+    plugins: cov-2.10.1, django-3.10.0
+    collected 5 items                                                                                                                                      
+
+    products/tests/test_models.py ..                                                [ 40%]
+    products/tests/test_views.py ..                                                 [ 80%]
+    products/tests/test_urls.py .                                                   [100%]
+    
+    ========================================= 5 passed in 0.42s =============================
+   ```
