@@ -164,3 +164,32 @@ Django aplication with pytest procedure, oriented by The Dumbfounds .
            */.venv/*
    ```
    ![](products/static/products/images/COVERAGE_HTML.png)
+   
+
+## 5- Create pytest fixture
+   - into file test_views.py
+   ```
+     @pytest.fixture
+     def factory():
+          return RequestFactory()
+
+     @pytest.fixture
+     def product(db):
+          return mixer.blend('products.Product')
+
+     def test_product_detail_authenticated(factory, product):
+          ...
+     def test_product_detail_unauthenticated(factory, product):
+          ...
+   ```
+   - into file test_models.py
+   ```
+     @pytest.fixture
+     def product(request, db):
+          return mixer.blend('products.Product', quantity=request.param)
+
+     @pytest.mark.parametrize('product', [1], indirect=True)
+          ...
+     @pytest.mark.parametrize('product', [0], indirect=True)
+          ...
+   ```
