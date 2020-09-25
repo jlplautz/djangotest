@@ -35,3 +35,8 @@ jobs:
 #    - name: Test with pytest
 #      run: |
 #        pytest
+#    - name: Posting Coverage
+#      env:
+#        CODECOV_TOKEN: "7a84e084-54bd-408f-9dce-f5eec8ec70d5"
+#      run: |
+#        --cov

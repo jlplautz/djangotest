@@ -81,6 +81,8 @@ Django aplication with pytest procedure, oriented by The Dumbfounds .
    ```   
    ![](products/static/products/images/Book.png)
    
+## 3- Install pytest-django/ pytest-cov / mixer
+   
    - (djangotest) djangotest $ pipenv install -d pytest-django
    - (djangotest) djangotest $ pipenv install -d 'pytest-cov'
    - (djangotest) djangotest $ pipenv install --dev mixer
@@ -109,4 +111,56 @@ Django aplication with pytest procedure, oriented by The Dumbfounds .
     products/tests/test_urls.py .                                                   [100%]
     
     ========================================= 5 passed in 0.42s =============================
+   ```           
+
+## 4- Criar um setup para executar funçoes comum(evitar codigo duplicado)     
+   - no test_views.py temos algumas linhas de codigo repetidos 
+   - fazer import django.test -> TestCase
+   - cria um função setUpClass
+                                    
    ```
+   (djangotest) djangotest $ pytest products --nomigrations --cov=products
+   ============================================== test session starts =======================================
+   platform linux -- Python 3.8.1, pytest-6.0.2, py-1.9.0, pluggy-0.13.1
+   django: settings: testing.settings (from ini)
+   rootdir: /home/plautz/PycharmProjects/djangotest, configfile: pytest.ini
+   plugins: cov-2.10.1, django-3.10.0
+   collected 5 items                                                                                                                                      
+   
+   products/tests/test_models.py ..                                                                   [ 40%]
+   products/tests/test_views.py ..                                                                    [ 80%]
+   products/tests/test_urls.py .                                                                      [100%]
+   
+   ----------- coverage: platform linux, python 3.8.1-final-0 -----------
+   Name                                  Stmts   Miss  Cover
+   ---------------------------------------------------------
+   products/__init__.py                      0      0   100%
+   products/admin.py                         0      0   100%
+   products/apps.py                          3      3     0%
+   products/migrations/0001_initial.py       5      5     0%
+   products/migrations/__init__.py           0      0   100%
+   products/models.py                       10      0   100%
+   products/tests.py                         0      0   100%
+   products/tests/test_models.py            11      0   100%
+   products/tests/test_urls.py               5      0   100%
+   products/tests/test_views.py             26      0   100%
+   products/views.py                         7      0   100%
+   ---------------------------------------------------------
+   TOTAL                                    67      8    88%
+   
+   =============================================== 5 passed in 0.38s =========================================
+   ```     
+   - Modified file pytest.ini
+   ```
+    [pytest]
+    DJANGO_SETTINGS_MODULE = testing.settings
+    addopts = --cov --cov-report=html
+   ```
+   - created a file .coveragerc in the pŕoject root
+   ```
+    [run]
+    omit = */tests/*
+           */migrations/*
+           */.venv/*
+   ```
+   ![](products/static/products/images/COVERAGE_HTML.png)
