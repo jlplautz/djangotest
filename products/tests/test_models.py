@@ -1,4 +1,3 @@
-from products.models import Product
 from mixer.backend.django import mixer
 import pytest
 
